@@ -9,6 +9,8 @@
     "dev": "nodemon ./core/crud.js"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@types/node": "^20.3.2",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.1.6"
   }
 }
