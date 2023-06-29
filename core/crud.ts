@@ -10,7 +10,7 @@ interface Todo {
   done: boolean;
 }
 
-function create(content: string) {
+function create(content: string): Todo {
   const todo: Todo = {
     id: uuid(),
     date: new Date().toISOString(),
@@ -24,7 +24,27 @@ function create(content: string) {
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
     todos
   }, null, 2));
-  return content;
+  return todo;
+}
+
+function update(id: string, partialTodo: Partial<Todo>): Todo {
+  let updatedTodo;
+  const todos = read();
+  todos.forEach((currentTodo) => {
+    const isToUpdate = currentTodo.id === id;
+    if (isToUpdate) {
+      updatedTodo = Object.assign(currentTodo, partialTodo);
+    }
+  });
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todos, null, 2));
+  if (!updatedTodo) {
+    throw new Error("Please, provide another todo");
+  }
+  return updatedTodo;
+}
+
+function updateContentById(id: string, content: string): Todo {
+  return update(id, { content });
 }
 
 function read(): Array<Todo> {
@@ -43,4 +63,6 @@ function CLEAR_DB() {
 CLEAR_DB();
 create("Primeira TODO");
 create("Segunda TODO");
+const terceiraTodo = create("Terceira TODO");
+updateContentById(terceiraTodo.id, "Segunda TODO com novo content")
 console.log(read())
