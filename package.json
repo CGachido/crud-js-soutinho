@@ -1,0 +1,14 @@
+{
+  "name": "crud-com-qualidade",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Cassius Souza <cassius.sanches@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./core/crud.js",
+    "dev": "nodemon ./core/crud.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
