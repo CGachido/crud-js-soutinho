@@ -1,8 +1,10 @@
 import fs from "fs";
+import { v4 as uuid } from 'uuid'
 
 const DB_FILE_PATH = "./core/db";
 
 interface Todo {
+  id: string;
   date: string;
   content: string;
   done: boolean;
@@ -10,6 +12,7 @@ interface Todo {
 
 function create(content: string) {
   const todo: Todo = {
+    id: uuid(),
     date: new Date().toISOString(),
     content: content,
     done: false
