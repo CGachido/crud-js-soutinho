@@ -5,8 +5,8 @@
   "author": "Cassius Souza <cassius.sanches@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./core/crud.js",
-    "dev": "nodemon ./core/crud.js"
+    "start": "npx ts-node ./core/crud.ts",
+    "dev:crud": "nodemon --ext ts,tsx --exec yarn start"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
