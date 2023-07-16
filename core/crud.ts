@@ -1,9 +1,9 @@
 import fs from "fs";
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from "uuid";
 
 const DB_FILE_PATH = "./core/db";
 
-type UUID = string
+type UUID = string;
 interface Todo {
   id: UUID;
   date: string;
@@ -16,15 +16,19 @@ function create(content: string): Todo {
     id: uuid(),
     date: new Date().toISOString(),
     content: content,
-    done: false
-  }
-  const todos: Todo[] = [
-    ...read(),
-    todo
-  ]
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
-    todos
-  }, null, 2));
+    done: false,
+  };
+  const todos: Todo[] = [...read(), todo];
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify(
+      {
+        todos,
+      },
+      null,
+      2
+    )
+  );
   return todo;
 }
 
@@ -60,9 +64,12 @@ function read(): Array<Todo> {
 function deleteById(id: UUID) {
   const todos = read();
   const todosWithoutOne = todos.filter((todo) => {
-    return !(todo.id === id)
+    return !(todo.id === id);
   });
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos: todosWithoutOne }, null, 2));
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify({ todos: todosWithoutOne }, null, 2)
+  );
 }
 
 function CLEAR_DB() {
@@ -74,6 +81,6 @@ create("Primeira TODO");
 const secondTodo = create("Segunda TODO");
 deleteById(secondTodo.id);
 const thirdTodo = create("Terceira TODO");
-updateContentById(thirdTodo.id, "ATUALIZADA")
+updateContentById(thirdTodo.id, "ATUALIZADA");
 const todos = read();
-console.log(todos)
+console.log(todos);
