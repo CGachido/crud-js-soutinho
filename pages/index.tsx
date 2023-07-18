@@ -10,13 +10,19 @@ interface HomeTodo {
 }
 
 function HomePage() {
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
+  const hasMorePage = totalPages > page;
 
   useEffect(() => {
-    todoController.get().then((todos) => {
-      setTodos(todos);
+    todoController.get({ page }).then(({ todos, pages }) => {
+      setTodos((oldTodos) => {
+        return [...oldTodos, ...todos];
+      });
+      setTotalPages(pages);
     });
-  }, []);
+  }, [page]);
 
   return (
     <main>
@@ -80,24 +86,29 @@ function HomePage() {
               <td colSpan={4} align="center">
                 Nenhum item encontrado
               </td>
-            </tr>
+            </tr>*/}
 
-            <tr>
-              <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                <button data-type="load-more">
-                  Carregar mais{" "}
-                  <span
-                    style={{
-                      display: "inline-block",
-                      marginLeft: "4px",
-                      fontSize: "1.2em",
-                    }}
+            {hasMorePage && (
+              <tr>
+                <td colSpan={4} align="center" style={{ textAlign: "center" }}>
+                  <button
+                    data-type="load-more"
+                    onClick={() => setPage(page + 1)}
                   >
-                    ↓
-                  </span>
-                </button>
-              </td>
-            </tr> */}
+                    Página {page}, Carregar mais{" "}
+                    <span
+                      style={{
+                        display: "inline-block",
+                        marginLeft: "4px",
+                        fontSize: "1.2em",
+                      }}
+                    >
+                      ↓
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>

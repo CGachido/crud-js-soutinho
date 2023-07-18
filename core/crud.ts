@@ -82,5 +82,9 @@ function CLEAR_DB() {
 // deleteById(secondTodo.id);
 // const thirdTodo = create("Terceira TODO");
 // updateContentById(thirdTodo.id, "ATUALIZADA");
+
+// create("Terceira TODO");
+
+// create("Quarta TODO");
 // const todos = read();
 // console.log(todos);
