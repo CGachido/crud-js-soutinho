@@ -52,7 +52,7 @@ function updateContentById(id: UUID, content: string): Todo {
   return update(id, { content });
 }
 
-function read(): Array<Todo> {
+export function read(): Array<Todo> {
   const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
   const db = JSON.parse(dbString || "{}");
   if (!db.todos) {
@@ -76,11 +76,11 @@ function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH, "");
 }
 
-CLEAR_DB();
-create("Primeira TODO");
-const secondTodo = create("Segunda TODO");
-deleteById(secondTodo.id);
-const thirdTodo = create("Terceira TODO");
-updateContentById(thirdTodo.id, "ATUALIZADA");
-const todos = read();
-console.log(todos);
+// CLEAR_DB();
+// create("Primeira TODO");
+// const secondTodo = create("Segunda TODO");
+// deleteById(secondTodo.id);
+// const thirdTodo = create("Terceira TODO");
+// updateContentById(thirdTodo.id, "ATUALIZADA");
+// const todos = read();
+// console.log(todos);
