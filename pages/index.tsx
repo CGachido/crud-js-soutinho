@@ -10,6 +10,7 @@ interface HomeTodo {
 }
 
 function HomePage() {
+  const [newTodoContent, setNewTodoContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const initialLoadComplete = useRef(false);
   const [totalPages, setTotalPages] = useState(0);
@@ -51,8 +52,32 @@ function HomePage() {
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form>
-          <input type="text" placeholder="Correr, Estudar..." />
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            todoController.create({
+              content: newTodoContent,
+              onSuccess(todo: HomeTodo) {
+                setTodos((oldTodos) => {
+                  return [todo, ...oldTodos];
+                });
+                setNewTodoContent("");
+              },
+
+              onError() {
+                alert("Necessário preencher a todo.");
+              },
+            });
+          }}
+        >
+          <input
+            value={newTodoContent}
+            onChange={function newTodoHandler(event) {
+              setNewTodoContent(event.target.value);
+            }}
+            type="text"
+            placeholder="Correr, Estudar..."
+          />
           <button type="submit" aria-label="Adicionar novo item">
             +
           </button>
