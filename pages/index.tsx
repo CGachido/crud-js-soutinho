@@ -7,6 +7,7 @@ const bg = "/bg.avif";
 interface HomeTodo {
   id: string;
   content: string;
+  done: boolean;
 }
 
 function HomePage() {
@@ -112,10 +113,34 @@ function HomePage() {
               return (
                 <tr key={currentTodo.id}>
                   <td>
-                    <input type="checkbox" />
+                    <input
+                      onChange={function handleToggle() {
+                        todoController.toggleDone({
+                          id: currentTodo.id,
+                          onError() {
+                            alert("Falha ao atualizar a TODO");
+                          },
+                          updateTodoOnScreen() {
+                            setTodos((currentTodos) => {
+                              return currentTodos.map((todo) => {
+                                if (todo.id === currentTodo.id) {
+                                  return { ...todo, done: !todo.done };
+                                }
+                                return todo;
+                              });
+                            });
+                          },
+                        });
+                      }}
+                      checked={currentTodo.done}
+                      type="checkbox"
+                    />
                   </td>
                   <td>{currentTodo.id.substring(0, 4)}</td>
-                  <td>{currentTodo.content}</td>
+                  <td>
+                    {!currentTodo.done && currentTodo.content}
+                    {currentTodo.done && <s>{currentTodo.content}</s>}
+                  </td>
                   <td align="right">
                     <button data-type="delete">Apagar</button>
                   </td>
