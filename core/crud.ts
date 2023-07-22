@@ -32,7 +32,7 @@ export function create(content: string): Todo {
   return todo;
 }
 
-function update(id: UUID, partialTodo: Partial<Todo>): Todo {
+export function update(id: UUID, partialTodo: Partial<Todo>): Todo {
   let updatedTodo;
   const todos = read();
   todos.forEach((currentTodo) => {
