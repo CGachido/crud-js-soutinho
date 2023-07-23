@@ -1,4 +1,10 @@
-import { read, create, update } from "@db-crud-todo";
+import {
+  read,
+  create,
+  update,
+  deleteById as dbDeleteById,
+} from "@db-crud-todo";
+import { HttpNotFoundError } from "@server/infra/errors";
 
 interface TodoRepositoryGetParams {
   page?: number;
@@ -48,10 +54,20 @@ async function toggleDone(id: string): Promise<Todo> {
   return updatedTodo;
 }
 
+async function deleteById(id: string) {
+  const ALL_TODOS = read();
+  const todo = ALL_TODOS.find((todo) => todo.id === id);
+  if (!todo) {
+    throw new HttpNotFoundError(`Todo with id "${id}" not found.`);
+  }
+  dbDeleteById(id);
+}
+
 export const todoRepository = {
   get,
   createByContent,
   toggleDone,
+  deleteById,
 };
 
 interface Todo {

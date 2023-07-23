@@ -61,7 +61,7 @@ export function read(): Array<Todo> {
   return db.todos;
 }
 
-function deleteById(id: UUID) {
+export function deleteById(id: UUID) {
   const todos = read();
   const todosWithoutOne = todos.filter((todo) => {
     return !(todo.id === id);
