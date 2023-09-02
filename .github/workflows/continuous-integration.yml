@@ -12,6 +12,6 @@ jobs:
       ## [Common_CI_Steps] -- sempre
       - uses: actions/checkout@v3
       - name: "Install Dependencies"
-        run: "npm ci"
+        run: "npm install"
       - name: "Lint"
         run: "npm run lint"
