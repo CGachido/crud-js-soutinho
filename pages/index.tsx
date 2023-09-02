@@ -72,6 +72,7 @@ function HomePage() {
           }}
         >
           <input
+            name="add-todo"
             value={newTodoContent}
             onChange={function newTodoHandler(event) {
               setNewTodoContent(event.target.value);

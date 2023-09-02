@@ -48,9 +48,9 @@ export function update(id: UUID, partialTodo: Partial<Todo>): Todo {
   return updatedTodo;
 }
 
-function updateContentById(id: UUID, content: string): Todo {
-  return update(id, { content });
-}
+// function updateContentById(id: UUID, content: string): Todo {
+//   return update(id, { content });
+// }
 
 export function read(): Array<Todo> {
   const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
@@ -72,9 +72,9 @@ export function deleteById(id: UUID) {
   );
 }
 
-function CLEAR_DB() {
-  fs.writeFileSync(DB_FILE_PATH, "");
-}
+// function CLEAR_DB() {
+//   fs.writeFileSync(DB_FILE_PATH, "");
+// }
 
 // CLEAR_DB();
 // create("Primeira TODO");
